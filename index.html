@@ -1,0 +1,2080 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>Ofrenda</title>
+
+    <link rel="icon" type="image/png" href="./js/calavera.jpg"/>
+
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+ <script src="./font/Super Sunkissed_Regular.js"></script>
+<script type="importmap">
+
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+
+    
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+
+       import{TextGeometry} from "./js/TextGeometry.js";
+    import{FontLoader} from "./js/FontLoader.js";
+
+
+    import vela01 from "./assets/vela.js"
+    import bc01 from "./assets/BarrildeCerbeza.js"
+    import poll01 from "./assets/TazonArroz.js"
+   import Ppcado01 from "./assets/Papelpicado1.js"
+    import Papic02 from "./assets/Papelpicado3.js"
+    import Papic03 from "./assets/Papelpicado4.js"
+import Ppcado04 from "./assets/Papelpicado5.js"
+import Papic05 from "./assets/Papelpicado6.js"
+import Papic06 from "./assets/Papelpicado7.js"
+import Papic07 from "./assets/Papelpicado8.js"
+import FLor01 from "./assets/flor.js"
+import Cla01 from "./assets/calaberadeazucarint1.js"
+import pan01 from "./assets/pan.js"
+import plat02 from "./assets/pozolo.js"
+import RPedro02 from "./assets/retrato2.js"
+import RPedro03 from "./assets/retrato3.js"
+import RPedro04 from "./assets/retrato4.js"
+import RPedro05 from "./assets/retrato5.js"
+import RPedro06 from "./assets/retrato6.js"
+import RPedro07 from "./assets/retrato7.js"
+import RPedro08 from "./assets/retrato8.js"
+import RPedro09 from "./assets/retrato9.js"
+import vaso01 from "./assets/vaso.js"
+import vela02 from "./assets/vela02.js"
+import tum01 from "./assets/tumbao1.js"
+import tum02 from "./assets/tumbao2.js"
+import xibalba from "./assets/xibalba.js"
+
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.decivePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x8184ad);
+
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+    var camera = new THREE.PerspectiveCamera(105,window.innerWidth / window.innerHeight,1,10000
+      );
+    scene.add(camera);
+
+// Evento para redimensionar el canvas
+// Sizes: Objeto donde se toman los tamaños interiores 'inner' de la ventana.
+const sizes = {
+width: window.innerWidth,
+height: window.innerHeight,
+};
+// Tomando el 'canvas' mediante el id 'myCanvas' del HTML para cambiar sus dimensiones
+const canvas = document.getElementById('myCanvas');
+// Evento que se ejecutará al redimensionar 'resize' nuestra ventana
+window.addEventListener('resize', () => {
+// Actualizando los valores del objeto 'sizes' con las medidas internas de la
+//ventana
+sizes.width = window.innerWidth;
+sizes.height = window.innerHeight;
+// Actualización de los valores en la cámara como la relación-aspecto y la
+//matriz de proyección.
+camera.aspect = sizes.width / sizes.height;
+camera.updateProjectionMatrix();
+// Aplicando al render el nuevo tamaño del 'viewport'
+renderer.setSize(sizes.width, sizes.height);
+});
+    //Settings de la cámara
+    camera.position.set(-20, 55, 200);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+     
+    //aparece cuadricula
+    var gridHelper = new THREE.GridHelper(50,50);
+    //scene.add (gridHelper); 
+
+    //cuadricula polar
+    var helper = new THREE.PolarGridHelper(20,40,10,20);
+    //scene.add (helper);
+
+    //aparecen los ejes x,y,Z
+    var axesHelper = new THREE.AxesHelper(500);
+    //scene.add (axesHelper);
+
+// Espacio para colocar los objetos
+
+//luz 
+var light=new THREE.AmbientLight(0xFFFFFF, .7); 
+light.position.set(50,50,50); 
+scene.add(light);
+
+var light=new THREE.DirectionalLight(0xFFFFFF, .3); 
+light.position.set(50,50,-50); 
+scene.add(light);
+
+var light1=new THREE.DirectionalLight(0xFFFFFF, .3); 
+light.position.set(50,50,-50); 
+scene.add(light);
+
+var light2=new THREE.DirectionalLight(0xFFFFFF, .3); 
+light2.position.set(-50,50,-50); 
+scene.add(light2);
+
+var light3=new THREE.DirectionalLight(0xFFFFFF, .4); 
+light3.position.set(50,-50,50); 
+scene.add(light3);
+
+
+//plano
+var geometry01 =new THREE.BoxGeometry(1000,0.5,1000); 
+ var material01 =new THREE.MeshLambertMaterial(
+    {
+        color:0x7A5851, side: THREE.DoubleSide
+    }
+ ); 
+
+
+var mesh01 = new THREE.Mesh (geometry01,material01); 
+scene.add(mesh01);
+mesh01.position.set(0,-5,0);
+
+//background
+var loader = new THREE.TextureLoader();
+var bgTexture=loader.load ('assets/fondo.jpg');
+scene.background=bgTexture;
+
+//altar 
+//nuvel 1
+var mesh1 = new THREE.BoxGeometry (300,10,290,4,6,8);
+var material = new THREE.MeshLambertMaterial (
+    {color:0x615250, side: THREE.DoubleSide}
+);
+var mesh1 = new THREE.Mesh(mesh1,material);
+scene.add (mesh1);
+mesh1.position.set(0,0,3);
+
+//Nivel 2
+var mesh2 = new THREE.BoxGeometry (155,8,165,4,6,8);
+var materia2 = new THREE.MeshLambertMaterial (
+    {color:0x9E7D75, side: THREE.DoubleSide}
+);
+var mesh2 = new THREE.Mesh(mesh2,materia2);
+scene.add (mesh2);
+mesh2.position.set(0,8,3);
+
+
+//Nivel 3
+var mesh3 = new THREE.BoxGeometry (55,8,30,4,6,8);
+var materia3 = new THREE.MeshLambertMaterial (
+    {color:0xBD9E97, side: THREE.DoubleSide}
+);
+var mesh3 = new THREE.Mesh(mesh3,materia3);
+scene.add (mesh3);
+mesh3.position.set(0,15,3);
+
+//cruz 
+var mesh4 = new THREE.BoxGeometry (1,1,5,4,6,8);
+var materia4 = new THREE.MeshLambertMaterial (
+    {color:0x000000, side: THREE.DoubleSide}
+);
+var mesh4 = new THREE.Mesh(mesh4,materia4);
+scene.add (mesh4);
+mesh4.position.set(0,6,23);
+
+
+var mesh5 = new THREE.BoxGeometry (4,.5,.5,2,1,4);
+var materia5 = new THREE.MeshLambertMaterial (
+    {color:0x000000, side: THREE.DoubleSide}
+);
+var mesh5= new THREE.Mesh(mesh5,materia5);
+scene.add (mesh5);
+mesh5.position.set(0,7,23);
+
+//añadir
+
+//velas del altar
+//nivel 3
+const escenario09 = vela01({x:-20, y:18, z:10});
+escenario09.scale.set(.6,.6,.6);
+scene.add(escenario09);
+
+const escenario10 = vela01({x:20, y:18, z:10});
+escenario10.scale.set(.6,.6,.6);
+scene.add(escenario10);
+
+//nivel 2 
+const escenario01 = vela01({x:-70, y:11, z:60});
+escenario01.scale.set(.6,.6,.6);
+scene.add(escenario01);
+
+const escenario06 = vela01({x:70, y:11, z:60});
+escenario06.scale.set(.6,.6,.6);
+scene.add(escenario06);
+
+const escenario07 = vela01({x:-70, y:11, z:-60});
+escenario07.scale.set(.6,.6,.6);
+scene.add(escenario07);
+
+const escenario08 = vela01({x:70, y:11, z:-60});
+escenario08.scale.set(.6,.6,.6);
+scene.add(escenario08);
+
+//nivel 1
+const escenario02 = vela01({x:140, y:4, z:130});
+escenario02.scale.set(.6,.6,.6);
+scene.add(escenario02);
+
+const escenario03 = vela01({x:-140, y:4, z:130});
+escenario03.scale.set(.6,.6,.6);
+scene.add(escenario03);
+
+const escenario04 = vela01({x:-140, y:4, z:-130});
+escenario04.scale.set(.6,.6,.6);
+scene.add(escenario04);
+
+const escenario05 = vela01({x:140, y:4, z:-130});
+escenario05.scale.set(.6,.6,.6);
+scene.add(escenario05);
+
+
+//barril 
+//nivel1
+const escenario11 = bc01({x:-110, y:5, z:-50});
+scene.add(escenario11);
+
+const escenario12 = bc01({x:-140, y:5, z:100});
+scene.add(escenario12);
+
+const escenario13 = bc01({x:30, y:5, z:100});
+scene.add(escenario13);
+
+const escenario14 = bc01({x:100, y:5, z:50});
+scene.add(escenario14);
+
+const escenario15 = bc01({x:-30, y:5, z:-110});
+scene.add(escenario15);
+
+//nivel 2
+const escenario16 = bc01({x:-50, y:12, z:0});
+scene.add(escenario16);
+
+const escenario17 = bc01({x:30, y:12, z:0});
+scene.add(escenario17);
+
+//comida 
+//tazon de arroz 
+const escenario18 = poll01({x:-110, y:7, z:0});
+scene.add(escenario18);
+
+const escenario19 = poll01({x:-90, y:7, z:110});
+scene.add(escenario19);
+
+const escenario20 = poll01({x:80, y:7, z:110});
+scene.add(escenario20);
+
+const escenario21 = poll01({x:80, y:7, z:110});
+scene.add(escenario21);
+
+const escenario22 = poll01({x:100, y:7, z:-60});
+scene.add(escenario22);
+
+const escenario23 = poll01({x:-50, y:7, z:-110});
+scene.add(escenario23);
+
+//nivel 2
+const escenario24 = poll01({x:-50, y:12, z:-40});
+scene.add(escenario24);
+
+const escenario25 = poll01({x:40, y:12, z:40});
+scene.add(escenario25);
+
+//papel picado 
+const escenario26 = Ppcado01({x:-150, y:-4, z:149});
+scene.add(escenario26);
+
+const escenario27 = Papic02({x:-140, y:-4, z:149});
+scene.add(escenario27);
+
+const escenario28 = Papic03({x:-130, y:-4, z:149});
+scene.add(escenario28);
+
+const escenario29 = Ppcado04({x:-120, y:-4, z:149});
+scene.add(escenario29);
+
+const escenario30 = Papic05({x:-110, y:-4, z:149});
+scene.add(escenario30);
+
+const escenario31 = Papic06({x:-100, y:-4, z:149});
+scene.add(escenario31);
+
+const escenario32 = Papic07({x:-100, y:-4, z:149});
+scene.add(escenario32);
+
+const escenario33 = Ppcado01({x:-90, y:-4, z:149});
+scene.add(escenario33);
+
+const escenario34 = Papic02({x:-80, y:-4, z:149});
+scene.add(escenario34);
+
+const escenario35 = Ppcado04({x:-70, y:-4, z:149});
+scene.add(escenario35);
+
+const escenario36 = Papic03({x:-60, y:-4, z:149});
+scene.add(escenario36);
+
+const escenario37 = Papic05({x:-50, y:-4, z:149});
+scene.add(escenario37);
+
+const escenario38 = Papic06({x:-40, y:-4, z:149});
+scene.add(escenario38);
+
+const escenario39 = Papic07({x:-30, y:-4, z:149});
+scene.add(escenario39);
+
+const escenario40 = Ppcado01({x:-20, y:-4, z:149});
+scene.add(escenario40);
+
+const escenario41 = Papic02({x:-10, y:-4, z:149});
+scene.add(escenario41);
+
+const escenario42 = Ppcado04({x:0, y:-4, z:149});
+scene.add(escenario42);
+
+const escenario43 = Papic03({x:10, y:-4, z:149});
+scene.add(escenario43);
+
+const escenario44 = Papic05({x:20, y:-4, z:149});
+scene.add(escenario44);
+
+const escenario45 = Papic06({x:30, y:-4, z:149});
+scene.add(escenario45);
+
+const escenario46 = Papic07({x:40, y:-4, z:149});
+scene.add(escenario46);
+
+const escenario47 = Ppcado01({x:50, y:-4, z:149});
+scene.add(escenario47);
+
+const escenario48 = Papic02({x:60, y:-4, z:149});
+scene.add(escenario48);
+
+const escenario49 = Ppcado04({x:70, y:-4, z:149});
+scene.add(escenario49);
+
+const escenario50 = Papic03({x:80, y:-4, z:149});
+scene.add(escenario50);
+
+const escenario51 = Papic05({x:90, y:-4, z:149});
+scene.add(escenario51);
+
+const escenario52 = Papic06({x:100, y:-4, z:149});
+scene.add(escenario52);
+
+const escenario53 = Papic07({x:110, y:-4, z:149});
+scene.add(escenario53);
+
+const escenario54 = Ppcado01({x:120, y:-4, z:149});
+scene.add(escenario54);
+
+const escenario55 = Papic02({x:130, y:-4, z:149});
+scene.add(escenario55);
+
+const escenario56 = Papic03({x:140, y:-4, z:149});
+scene.add(escenario56);
+
+
+const escenario57 = Ppcado01({x:151, y:-4, z:149});
+escenario57.rotation.set(0,-300,0);
+scene.add(escenario57);
+
+const escenario58 = Papic02({x:151, y:-4, z:139});
+escenario58.rotation.set(0,-300,0);
+scene.add(escenario58);
+
+const escenario59 = Ppcado04({x:151, y:-4, z:129});
+escenario59.rotation.set(0,-300,0);
+scene.add(escenario59);
+
+const escenario60 = Papic03({x:151, y:-4, z:119});
+escenario60.rotation.set(0,-300,0);
+scene.add(escenario60);
+
+const escenario61 = Papic05({x:151, y:-4, z:109});
+escenario61.rotation.set(0,-300,0);
+scene.add(escenario61);
+
+const escenario62 = Papic06({x:151, y:-4, z:99});
+escenario62.rotation.set(0,-300,0);
+scene.add(escenario62);
+
+const escenario63 = Papic07({x:151, y:-4, z:89});
+escenario63.rotation.set(0,-300,0);
+scene.add(escenario63);
+
+const escenario64 = Ppcado01({x:151, y:-4, z:79});
+escenario64.rotation.set(0,-300,0);
+scene.add(escenario64);
+
+const escenario65 = Papic02({x:151, y:-4, z:69});
+escenario65.rotation.set(0,-300,0);
+scene.add(escenario65);
+
+const escenario66 = Ppcado04({x:151, y:-4, z:59});
+escenario66.rotation.set(0,-300,0);
+scene.add(escenario66);
+
+const escenario67 = Papic03({x:151, y:-4, z:49});
+escenario67.rotation.set(0,-300,0);
+scene.add(escenario67);
+
+const escenario68 = Papic05({x:151, y:-4, z:39});
+escenario68.rotation.set(0,-300,0);
+scene.add(escenario68);
+
+const escenario69 = Papic06({x:151, y:-4, z:29});
+escenario69.rotation.set(0,-300,0);
+scene.add(escenario69);
+
+const escenario70 = Papic07({x:151, y:-4, z:19});
+escenario70.rotation.set(0,-300,0);
+scene.add(escenario70);
+
+const escenario71 = Ppcado01({x:151, y:-4, z:9});
+escenario71.rotation.set(0,-300,0);
+scene.add(escenario71);
+
+const escenario72 = Papic02({x:151, y:-4, z:-1});
+escenario72.rotation.set(0,-300,0);
+scene.add(escenario72);
+
+const escenario73 = Ppcado04({x:151, y:-4, z:-11});
+escenario73.rotation.set(0,-300,0);
+scene.add(escenario73);
+
+const escenario74 = Papic03({x:151, y:-4, z:-21});
+escenario74.rotation.set(0,-300,0);
+scene.add(escenario74);
+
+const escenario75 = Papic05({x:151, y:-4, z:-31});
+escenario75.rotation.set(0,-300,0);
+scene.add(escenario75);
+
+const escenario76 = Papic06({x:151, y:-4, z:-41});
+escenario76.rotation.set(0,-300,0);
+scene.add(escenario76);
+
+const escenario77 = Papic07({x:151, y:-4, z:-51});
+escenario71.rotation.set(0,-300,0);
+scene.add(escenario71);
+
+const escenario78 = Ppcado01({x:151, y:-4, z:-61});
+escenario78.rotation.set(0,-300,0);
+scene.add(escenario78);
+
+const escenario79 = Papic02({x:151, y:-4, z:-71});
+escenario79.rotation.set(0,-300,0);
+scene.add(escenario79);
+
+const escenario80 = Ppcado04({x:151, y:-4, z:-81});
+escenario80.rotation.set(0,-300,0);
+scene.add(escenario80);
+
+const escenario81 = Papic03({x:151, y:-4, z:-91});
+escenario81.rotation.set(0,-300,0);
+scene.add(escenario81);
+
+const escenario82 = Papic05({x:151, y:-4, z:-101});
+escenario82.rotation.set(0,-300,0);
+scene.add(escenario82);
+
+const escenario83 = Papic06({x:151, y:-4, z:-111});
+escenario83.rotation.set(0,-300,0);
+scene.add(escenario83);
+
+const escenario84 = Papic07({x:151, y:-4, z:-121});
+escenario84.rotation.set(0,-300,0);
+scene.add(escenario84);
+
+const escenario85 = Ppcado01({x:151, y:-4, z:-131});
+escenario85.rotation.set(0,-300,0);
+scene.add(escenario85);
+
+
+const escenario86 = Papic02({x:150, y:-4, z:-142});
+escenario86.rotation.set(0,380,0);
+scene.add(escenario86);
+
+const escenario87 = Ppcado04({x:140, y:-4, z:-142});
+escenario87.rotation.set(0,-330,0);
+scene.add(escenario87);
+
+const escenario88 = Papic03({x:130, y:-4, z:-142});
+escenario88.rotation.set(0,-330,0);
+scene.add(escenario88);
+
+const escenario89 = Papic05({x:120, y:-4, z:-142});
+escenario89.rotation.set(0,-330,0);
+scene.add(escenario89);
+
+const escenario90 = Papic06({x:110, y:-4, z:-142});
+escenario90.rotation.set(0,-330,0);
+scene.add(escenario90);
+
+const escenario91 = Papic07({x:100, y:-4, z:-142});
+escenario91.rotation.set(0,-330,0);
+scene.add(escenario91);
+
+const escenario92 = Ppcado01({x:90, y:-4, z:-142});
+escenario92.rotation.set(0,-330,0);
+scene.add(escenario92);
+
+const escenario93 = Papic02({x:80, y:-4, z:-142});
+escenario93.rotation.set(0,380,0);
+scene.add(escenario93);
+
+const escenario94 = Ppcado04({x:70, y:-4, z:-142});
+escenario94.rotation.set(0,-330,0);
+scene.add(escenario94);
+
+const escenario95 = Papic03({x:60, y:-4, z:-142});
+escenario95.rotation.set(0,-330,0);
+scene.add(escenario95);
+
+const escenario96 = Papic05({x:50, y:-4, z:-142});
+escenario96.rotation.set(0,-330,0);
+scene.add(escenario96);
+
+const escenario97 = Papic06({x:40, y:-4, z:-142});
+escenario97.rotation.set(0,-330,0);
+scene.add(escenario97);
+
+const escenario98 = Papic07({x:30, y:-4, z:-142});
+escenario98.rotation.set(0,-330,0);
+scene.add(escenario98);
+
+const escenario99 = Ppcado01({x:20, y:-4, z:-142});
+escenario99.rotation.set(0,-330,0);
+scene.add(escenario99);
+
+const escenario100 = Papic02({x:10, y:-4, z:-142});
+escenario100.rotation.set(0,380,0);
+scene.add(escenario100);
+
+const escenario101 = Ppcado04({x:0, y:-4, z:-142});
+escenario101.rotation.set(0,-330,0);
+scene.add(escenario101);
+
+const escenario102 = Papic03({x:-10, y:-4, z:-142});
+escenario102.rotation.set(0,-330,0);
+scene.add(escenario102);
+
+const escenario103 = Papic05({x:-20, y:-4, z:-142});
+escenario103.rotation.set(0,-330,0);
+scene.add(escenario103);
+
+const escenario104 = Papic06({x:-30, y:-4, z:-142});
+escenario104.rotation.set(0,-330,0);
+scene.add(escenario104);
+
+const escenario105 = Papic07({x:-40, y:-4, z:-142});
+escenario105.rotation.set(0,-330,0);
+scene.add(escenario105);
+
+const escenario106 = Ppcado01({x:-40, y:-4, z:-142});
+escenario106.rotation.set(0,-330,0);
+scene.add(escenario106);
+
+const escenario107 = Papic02({x:-50, y:-4, z:-142});
+escenario107.rotation.set(0,380,0);
+scene.add(escenario107);
+
+const escenario108 = Ppcado04({x:-60, y:-4, z:-142});
+escenario108.rotation.set(0,-330,0);
+scene.add(escenario108);
+
+const escenario109 = Papic03({x:-70, y:-4, z:-142});
+escenario109.rotation.set(0,-330,0);
+scene.add(escenario109);
+
+const escenario110 = Papic05({x:-80, y:-4, z:-142});
+escenario110.rotation.set(0,-330,0);
+scene.add(escenario110);
+
+const escenario111 = Papic06({x:-90, y:-4, z:-142});
+escenario111.rotation.set(0,-330,0);
+scene.add(escenario111);
+
+const escenario112 = Papic07({x:-100, y:-4, z:-142});
+escenario112.rotation.set(0,-330,0);
+scene.add(escenario112);
+
+const escenario113 = Ppcado01({x:-100, y:-4, z:-142});
+escenario113.rotation.set(0,-330,0);
+scene.add(escenario113);
+
+const escenario114 = Papic02({x:-110, y:-4, z:-142});
+escenario114.rotation.set(0,380,0);
+scene.add(escenario114);
+
+const escenario115 = Ppcado04({x:-120, y:-4, z:-142});
+escenario115.rotation.set(0,-330,0);
+scene.add(escenario115);
+
+const escenario116 = Papic05({x:-130, y:-4, z:-142});
+escenario116.rotation.set(0,-330,0);
+scene.add(escenario116);
+
+const escenario117 = Papic06({x:-140, y:-4, z:-142});
+escenario117.rotation.set(0,-330,0);
+scene.add(escenario117);
+
+
+const escenario118 = Ppcado01({x:-151, y:-4, z:-131});
+escenario118.rotation.set(0,33,0);
+scene.add(escenario118);
+
+const escenario119 = Papic02({x:-151, y:-4, z:-121});
+escenario119.rotation.set(0,33,0);
+scene.add(escenario119);
+
+const escenario120 = Ppcado04({x:-151, y:-4, z:-111});
+escenario120.rotation.set(0,33,0);
+scene.add(escenario120);
+
+const escenario121 = Papic03({x:-151, y:-4, z:-101});
+escenario121.rotation.set(0,33,0);
+scene.add(escenario121);
+
+const escenario122 = Papic05({x:-151, y:-4, z:-91});
+escenario122.rotation.set(0,33,0);
+scene.add(escenario122);
+
+const escenario123 = Papic06({x:-151, y:-4, z:-81});
+escenario123.rotation.set(0,33,0);
+scene.add(escenario123);
+
+const escenario124 = Papic07({x:-151, y:-4, z:-71});
+escenario124.rotation.set(0,33,0);
+scene.add(escenario124);
+
+const escenario125 = Ppcado01({x:-151, y:-4, z:-61});
+escenario125.rotation.set(0,33,0);
+scene.add(escenario125);
+
+const escenario126 = Papic02({x:-151, y:-4, z:-51});
+escenario126.rotation.set(0,33,0);
+scene.add(escenario126);
+
+const escenario127 = Ppcado04({x:-151, y:-4, z:-41});
+escenario127.rotation.set(0,33,0);
+scene.add(escenario127);
+
+const escenario128 = Papic03({x:-151, y:-4, z:-31});
+escenario128.rotation.set(0,33,0);
+scene.add(escenario128);
+
+const escenario129 = Papic05({x:-151, y:-4, z:-21});
+escenario129.rotation.set(0,33,0);
+scene.add(escenario129);
+
+const escenario130 = Papic06({x:-151, y:-4, z:-11});
+escenario130.rotation.set(0,33,0);
+scene.add(escenario130);
+
+const escenario131 = Papic07({x:-151, y:-4, z:-1});
+escenario131.rotation.set(0,33,0);
+scene.add(escenario131);
+
+const escenario132 = Ppcado01({x:-151, y:-4, z:11});
+escenario132.rotation.set(0,33,0);
+scene.add(escenario132);
+
+const escenario133 = Papic02({x:-151, y:-4, z:21});
+escenario133.rotation.set(0,33,0);
+scene.add(escenario133);
+
+const escenario134 = Ppcado04({x:-151, y:-4, z:31});
+escenario134.rotation.set(0,33,0);
+scene.add(escenario134);
+
+const escenario135 = Papic03({x:-151, y:-4, z:41});
+escenario135.rotation.set(0,33,0);
+scene.add(escenario135);
+
+const escenario136 = Papic05({x:-151, y:-4, z:51});
+escenario136.rotation.set(0,33,0);
+scene.add(escenario136);
+
+const escenario137 = Papic06({x:-151, y:-4, z:61});
+escenario137.rotation.set(0,33,0);
+scene.add(escenario137);
+
+const escenario138 = Papic07({x:-151, y:-4, z:71});
+escenario138.rotation.set(0,33,0);
+scene.add(escenario138);
+
+const escenario139 = Ppcado01({x:-151, y:-4, z:81});
+escenario139.rotation.set(0,33,0);
+scene.add(escenario139);
+
+const escenario140 = Papic02({x:-151, y:-4, z:91});
+escenario140.rotation.set(0,33,0);
+scene.add(escenario140);
+
+const escenario141 = Ppcado04({x:-151, y:-4, z:101});
+escenario141.rotation.set(0,33,0);
+scene.add(escenario141);
+
+const escenario142 = Papic03({x:-151, y:-4, z:111});
+escenario142.rotation.set(0,33,0);
+scene.add(escenario142);
+
+const escenario143 = Papic05({x:-151, y:-4, z:121});
+escenario143.rotation.set(0,33,0);
+scene.add(escenario143);
+
+const escenario144 = Papic06({x:-151, y:-4, z:131});
+escenario144.rotation.set(0,33,0);
+scene.add(escenario144);
+
+const escenario145 = Papic07({x:-151, y:-4, z:141});
+escenario145.rotation.set(0,33,0);
+scene.add(escenario145);
+
+//papel picado segundo nivel 
+const escenario146 = Ppcado01({x:-77, y:4, z:86});
+scene.add(escenario146);
+
+const escenario147 = Papic02({x:-67, y:4, z:86});
+scene.add(escenario147);
+
+const escenario148 = Ppcado04({x:-57, y:4, z:86});
+scene.add(escenario148);
+
+const escenario149 = Papic03({x:-47, y:4, z:86});
+scene.add(escenario149);
+
+const escenario150 = Papic05({x:-37, y:4, z:86});
+scene.add(escenario150);
+
+const escenario151 = Papic06({x:-27, y:4, z:86});
+scene.add(escenario151);
+
+const escenario152 = Papic07({x:-17, y:4, z:86});
+scene.add(escenario152);
+
+const escenario153 = Ppcado01({x:-7, y:4, z:86});
+scene.add(escenario153);
+
+const escenario154 = Papic02({x:4, y:4, z:86});
+scene.add(escenario154);
+
+const escenario155 = Ppcado04({x:14, y:4, z:86});
+scene.add(escenario155);
+
+const escenario156 = Papic03({x:24, y:4, z:86});
+scene.add(escenario156);
+
+const escenario157 = Papic05({x:34, y:4, z:86});
+scene.add(escenario157);
+
+const escenario158 = Papic06({x:44, y:4, z:86});
+scene.add(escenario158);
+
+const escenario159 = Papic07({x:54, y:4, z:86});
+scene.add(escenario159);
+
+const escenario160 = Ppcado01({x:64, y:4, z:86});
+scene.add(escenario160);
+
+
+const escenario161 = Papic02({x:77.7, y:4, z:85});
+escenario161.rotation.set(0,33,0);
+scene.add(escenario161);
+
+const escenario162 = Ppcado04({x:77.7, y:4, z:75});
+escenario162.rotation.set(0,33,0);
+scene.add(escenario162);
+
+const escenario163 = Papic03({x:77.7, y:4, z:65});
+escenario163.rotation.set(0,33,0);
+scene.add(escenario163);
+
+const escenario164 = Papic05({x:77.7, y:4, z:55});
+escenario164.rotation.set(0,33,0);
+scene.add(escenario164);
+
+const escenario165 = Papic06({x:77.7, y:4, z:45});
+escenario165.rotation.set(0,33,0);
+scene.add(escenario165);
+
+const escenario166 = Papic07({x:77.7, y:4, z:35});
+escenario166.rotation.set(0,33,0);
+scene.add(escenario166);
+
+const escenario167 = Ppcado01({x:77.7, y:4, z:25});
+escenario167.rotation.set(0,33,0);
+scene.add(escenario167);
+
+const escenario168 = Papic02({x:77.7, y:4, z:15});
+escenario168.rotation.set(0,33,0);
+scene.add(escenario168);
+
+const escenario169 = Ppcado04({x:77.7, y:4, z:5});
+escenario169.rotation.set(0,33,0);
+scene.add(escenario169);
+
+const escenario170 = Papic03({x:77.7, y:4, z:-15});
+escenario170.rotation.set(0,33,0);
+scene.add(escenario170);
+
+const escenario171 = Papic05({x:77.7, y:4, z:-25});
+escenario171.rotation.set(0,33,0);
+scene.add(escenario171);
+
+const escenario172 = Papic06({x:77.7, y:4, z:-35});
+escenario172.rotation.set(0,33,0);
+scene.add(escenario172);
+
+const escenario173 = Papic07({x:77.7, y:4, z:-45});
+escenario173.rotation.set(0,33,0);
+scene.add(escenario173);
+
+const escenario174 = Ppcado01({x:77.7, y:4, z:-55});
+escenario174.rotation.set(0,33,0);
+scene.add(escenario174);
+
+const escenario175 = Papic02({x:77.7, y:4, z:-65});
+escenario175.rotation.set(0,33,0);
+scene.add(escenario175);
+
+
+
+
+const escenario176 = Papic03({x:67, y:4, z:-80});
+escenario176.rotation.set(0,333,0);
+scene.add(escenario176);
+
+const escenario177 = Papic05({x:57, y:4, z:-80});
+escenario177.rotation.set(0,333,0);
+scene.add(escenario177);
+
+const escenario178 = Papic06({x:47, y:4, z:-80});
+escenario178.rotation.set(0,333,0);
+scene.add(escenario178);
+
+const escenario179 = Papic07({x:37, y:4, z:-80});
+escenario179.rotation.set(0,333,0);
+scene.add(escenario179);
+
+const escenario180 = Ppcado01({x:27, y:4, z:-80});
+escenario180.rotation.set(0,333,0);
+scene.add(escenario180);
+
+const escenario181 = Papic02({x:17, y:4, z:-80});
+escenario181.rotation.set(0,333,0);
+scene.add(escenario181);
+
+const escenario182 = Papic03({x:7, y:4, z:-80});
+escenario182.rotation.set(0,333,0);
+scene.add(escenario182);
+
+const escenario183 = Papic05({x:-3, y:4, z:-80});
+escenario183.rotation.set(0,333,0);
+scene.add(escenario183);
+
+const escenario184 = Papic06({x:-13, y:4, z:-80});
+escenario184.rotation.set(0,333,0);
+scene.add(escenario184);
+
+const escenario185 = Papic07({x:-23, y:4, z:-80});
+escenario185.rotation.set(0,333,0);
+scene.add(escenario185);
+
+const escenario186 = Ppcado01({x:-33, y:4, z:-80});
+escenario186.rotation.set(0,333,0);
+scene.add(escenario186);
+
+const escenario187 = Papic02({x:-43, y:4, z:-80});
+escenario187.rotation.set(0,333,0);
+scene.add(escenario187);
+
+const escenario188 = Papic03({x:-53, y:4, z:-80});
+escenario188.rotation.set(0,333,0);
+scene.add(escenario188);
+
+const escenario189 = Papic05({x:-63, y:4, z:-80});
+escenario189.rotation.set(0,333,0);
+scene.add(escenario189);
+
+const escenario190 = Papic06({x:-73, y:4, z:-80});
+escenario190.rotation.set(0,333,0);
+scene.add(escenario190);
+
+
+
+const escenario191 = Papic07({x:-77.5 , y:4, z:-69});
+escenario191.rotation.set(0,33,0);
+scene.add(escenario191);
+
+const escenario192 = Ppcado01({x:-77.5, y:4, z:-59});
+escenario192.rotation.set(0,33,0);
+scene.add(escenario192);
+
+const escenario193 = Papic02({x:-77.5, y:4, z:-49});
+escenario193.rotation.set(0,33,0);
+scene.add(escenario193);
+
+const escenario194 = Papic03({x:-77.5, y:4, z:-39});
+escenario194.rotation.set(0,33,0);
+scene.add(escenario194);
+
+const escenario195 = Papic05({x:-77.7, y:4, z:-29});
+escenario195.rotation.set(0,33,0);
+scene.add(escenario195);
+
+const escenario196 = Papic06({x:-77.7, y:4, z:-19});
+escenario196.rotation.set(0,33,0);
+scene.add(escenario196);
+
+const escenario197 = Papic07({x:-77.5 , y:4, z:-9});
+escenario197.rotation.set(0,33,0);
+scene.add(escenario197);
+
+const escenario198 = Ppcado01({x:-77.5, y:4, z:1});
+escenario198.rotation.set(0,33,0);
+scene.add(escenario198);
+
+const escenario199 = Papic02({x:-77.5, y:4, z:11});
+escenario199.rotation.set(0,33,0);
+scene.add(escenario199);
+
+const escenario200 = Papic03({x:-77.5, y:4, z:21});
+escenario200.rotation.set(0,33,0);
+scene.add(escenario200);
+
+const escenario201 = Papic05({x:-77.7, y:4, z:31});
+escenario201.rotation.set(0,33,0);
+scene.add(escenario201);
+
+const escenario202 = Papic06({x:-77.7, y:4, z:41});
+escenario202.rotation.set(0,33,0);
+scene.add(escenario202);
+
+const escenario203 = Papic07({x:-77.5 , y:4, z:51});
+escenario203.rotation.set(0,33,0);
+scene.add(escenario203);
+
+const escenario204 = Ppcado01({x:-77.5, y:4, z:61});
+escenario204.rotation.set(0,33,0);
+scene.add(escenario204);
+
+const escenario205 = Papic02({x:-77.5, y:4, z:71});
+escenario205.rotation.set(0,33,0);
+scene.add(escenario205);
+
+const escenario206 = Papic03({x:-77.5, y:4, z:81});
+escenario206.rotation.set(0,33,0);
+scene.add(escenario206);
+
+
+//nivel 3 
+const escenario207 = Ppcado01({x:-27, y:10, z:18.3});
+scene.add(escenario207);
+
+const escenario208 = Papic02({x:-17, y:10, z:18.3});
+scene.add(escenario208);
+
+const escenario209 = Papic03({x:-7, y:10, z:18.3});
+scene.add(escenario209);
+
+const escenario210 = Papic05({x:3, y:10, z:18.3});
+scene.add(escenario210);
+
+const escenario211 = Papic06({x:13, y:10, z:18.3});
+scene.add(escenario211);
+
+
+const escenario212 = Papic07({x:28.5 , y:10, z:17});
+escenario212.rotation.set(0,33,0);
+scene.add(escenario212);
+
+const escenario213 = Ppcado01({x:28.5, y:10, z:-1.5});
+escenario213.rotation.set(0,33,0);
+scene.add(escenario213);
+
+
+const escenario214 = Papic02({x:18, y:10, z:-12.5});
+escenario214.rotation.set(0,333,0);
+scene.add(escenario214);
+
+const escenario215 = Papic03({x:8, y:10, z:-12.5});
+escenario215.rotation.set(0,333,0);
+scene.add(escenario215);
+
+const escenario216 = Papic05({x:-2, y:10, z:-12.5});
+escenario216.rotation.set(0,333,0);
+scene.add(escenario216);
+
+const escenario217 = Papic06({x:-12, y:10, z:-12.5});
+escenario217.rotation.set(0,333,0);
+scene.add(escenario217);
+
+const escenario218 = Papic07({x:-22 , y:10, z:-12.5});
+escenario218.rotation.set(0,333,0);
+scene.add(escenario218);
+
+
+const escenario219 = Ppcado01({x:-28.5, y:10, z:-1.5});
+escenario219.rotation.set(0,33,0);
+scene.add(escenario219);
+
+const escenario220 = Papic02({x:-28.5, y:10, z:18});
+escenario220.rotation.set(0,33,0);
+scene.add(escenario220);
+
+
+//flores 
+const escenario221 = FLor01({x:-140, y:5, z:18});
+escenario221.scale.set(.3,.3,.3);
+scene.add(escenario221);
+
+const escenario222 = FLor01({x:-100, y:5, z:-70});
+escenario222.scale.set(.3,.3,.3);
+scene.add(escenario222);
+
+const escenario223 = FLor01({x:-90, y:5, z:80});
+escenario223.scale.set(.3,.3,.3);
+scene.add(escenario223);
+
+const escenario224 = FLor01({x:-110, y:5, z:130});
+escenario224.scale.set(.3,.3,.3);
+scene.add(escenario224);
+
+const escenario225 = FLor01({x:-30, y:5, z:100});
+escenario225.scale.set(.3,.3,.3);
+scene.add(escenario225);
+
+const escenario226 = FLor01({x:60, y:5, z:140});
+escenario226.scale.set(.3,.3,.3);
+scene.add(escenario226);
+
+const escenario227 = FLor01({x:120, y:5, z:120});
+escenario227.scale.set(.3,.3,.3);
+scene.add(escenario227);
+
+const escenario228 = FLor01({x:100, y:5, z:30});
+escenario228.scale.set(.3,.3,.3);
+scene.add(escenario228);
+
+const escenario229 = FLor01({x:130, y:5, z:-30});
+escenario229.scale.set(.3,.3,.3);
+scene.add(escenario229);
+
+const escenario230 = FLor01({x:120, y:5, z:-110});
+escenario230.scale.set(.3,.3,.3);
+scene.add(escenario230);
+
+const escenario231 = FLor01({x:40, y:5, z:-100});
+escenario231.scale.set(.3,.3,.3);
+scene.add(escenario231);
+
+const escenario232 = FLor01({x:-30, y:5, z:-130});
+escenario232.scale.set(.3,.3,.3);
+scene.add(escenario232);
+
+const escenario233 = FLor01({x:-90, y:5, z:-110});
+escenario233.scale.set(.3,.3,.3);
+scene.add(escenario233);
+
+
+//nivel 2 
+
+const escenario234 = FLor01({x:-50, y:13, z:70});
+escenario234.scale.set(.3,.3,.3);
+scene.add(escenario234);
+
+const escenario235 = FLor01({x:-10, y:13, z:40});
+escenario235.scale.set(.3,.3,.3);
+scene.add(escenario235);
+
+const escenario236 = FLor01({x:60, y:13, z:50});
+escenario236.scale.set(.3,.3,.3);
+scene.add(escenario236);
+
+const escenario237 = FLor01({x:70, y:13, z:0});
+escenario237.scale.set(.3,.3,.3);
+scene.add(escenario237);
+
+const escenario238 = FLor01({x:30, y:13, z:-40});
+escenario238.scale.set(.3,.3,.3);
+scene.add(escenario238);
+
+const escenario239 = FLor01({x:-30, y:13, z:-60});
+escenario239.scale.set(.3,.3,.3);
+scene.add(escenario239);
+
+const escenario240= FLor01({x:-60, y:13, z:10});
+escenario240.scale.set(.3,.3,.3);
+scene.add(escenario240);
+
+
+//calaveras 
+const escenario241= Cla01({x:-100, y:4, z:140});
+escenario241.scale.set(.7,.7,.7);
+scene.add(escenario241);
+
+const escenario242= Cla01({x:50, y:4, z:120});
+escenario242.scale.set(.7,.7,.7);
+scene.add(escenario242);
+
+const escenario243= Cla01({x:120, y:4, z:90});
+escenario243.scale.set(.7,.7,.7);
+escenario243.rotation.set(0,33,0);
+scene.add(escenario243);
+
+const escenario244= Cla01({x:100, y:4, z:-30});
+escenario244.scale.set(.7,.7,.7);
+escenario244.rotation.set(0,33,0);
+scene.add(escenario244);
+
+const escenario245= Cla01({x:130, y:4, z:-120});
+escenario245.scale.set(.7,.7,.7);
+escenario245.rotation.set(0,330,0);
+scene.add(escenario245);
+
+const escenario246= Cla01({x:60, y:4, z:-100});
+escenario246.scale.set(.7,.7,.7);
+escenario246.rotation.set(0,330,0);
+scene.add(escenario246);
+
+const escenario247= Cla01({x:-70, y:4, z:-120});
+escenario247.scale.set(.7,.7,.7);
+escenario247.rotation.set(0,330,0);
+scene.add(escenario247);
+
+const escenario248= Cla01({x:-130, y:4, z:-90});
+escenario248.scale.set(.7,.7,.7);
+escenario248.rotation.set(0,300,0);
+scene.add(escenario248);
+
+const escenario249= Cla01({x:-120, y:4, z:50});
+escenario249.scale.set(.7,.7,.7);
+escenario249.rotation.set(0,300,0);
+scene.add(escenario249);
+
+
+//nivel 2 
+const escenario250= Cla01({x:-30, y:10, z:50});
+escenario250.scale.set(.7,.7,.7);
+scene.add(escenario250);
+
+const escenario251= Cla01({x:60, y:10.5, z:70});
+escenario251.scale.set(.7,.7,.7);
+escenario251.rotation.set(0,33,0);
+scene.add(escenario251);
+
+const escenario252= Cla01({x:50, y:10.5, z:-30});
+escenario252.scale.set(.7,.7,.7);
+escenario252.rotation.set(0,33,0);
+scene.add(escenario252);
+
+const escenario253= Cla01({x:-10, y:10.5, z:-60});
+escenario253.scale.set(.7,.7,.7);
+escenario253.rotation.set(0,330,0);
+scene.add(escenario253);
+
+const escenario254= Cla01({x:-50, y:10.5, z:-10});
+escenario254.scale.set(.7,.7,.7);
+escenario254.rotation.set(0,300,0);
+scene.add(escenario254);
+
+
+
+//pan de muerto 
+const escenario255= pan01({x:10, y:4, z:110});
+scene.add(escenario255);
+
+const escenario256= pan01({x:120, y:4, z:60});
+scene.add(escenario256);
+
+const escenario257= pan01({x:100, y:4, z:-110});
+scene.add(escenario257);
+
+const escenario258= pan01({x:-130, y:4, z:-60});
+scene.add(escenario258);
+
+
+//retratos 
+const escenario259= RPedro02 ({x:-130, y:4, z:-30});
+escenario259.scale.set(2,2,2);
+escenario259.rotation.set(0,300,0);
+scene.add(escenario259);
+
+
+const escenario260= RPedro03({x:-60, y:4, z:130});
+escenario260.scale.set(2,2,2);
+scene.add(escenario260);
+
+
+const escenario261= RPedro04({x:130, y:4, z:20});
+escenario261.scale.set(2,2,2);
+escenario261.rotation.set(0,33,0);
+scene.add(escenario261);
+
+
+const escenario262= RPedro05({x:10, y:4, z:-100});
+escenario262.scale.set(2,2,2);
+escenario262.rotation.set(0,330,0);
+scene.add(escenario262);
+
+
+const escenario263= RPedro06({x:50, y:11, z:30});
+escenario263.scale.set(2,2,2);
+scene.add(escenario263);
+
+const escenario264= RPedro07({x:-60, y:11, z:50});
+escenario264.scale.set(2,2,2);
+scene.add(escenario264);
+
+const escenario265= RPedro08({x:10, y:11, z:-50});
+escenario265.scale.set(2,2,2);
+escenario265.rotation.set(0,330,0);
+scene.add(escenario265);
+
+const escenario266= RPedro09({x:-10, y:15, z:3});
+escenario266.scale.set(2,2,2);
+scene.add(escenario266);
+
+//pozole
+
+const escenario267= plat02({x:-20, y:4, z:120});
+scene.add(escenario267);
+
+const escenario268= plat02({x:130, y:4, z:100});
+scene.add(escenario268);
+
+const escenario269= plat02({x:100, y:4, z:-130});
+scene.add(escenario269);
+
+const escenario270= plat02({x:-110, y:4, z:-100});
+scene.add(escenario270);
+
+const escenario279= plat02({x:-110, y:4, z:90});
+scene.add(escenario279);
+
+const escenario280= plat02({x:0, y:14, z:50});
+scene.add(escenario280);
+
+
+//vaso de agua 
+const escenario271= vaso01({x:-80, y:4, z:120});
+scene.add(escenario271);
+
+const escenario272= vaso01({x:90, y:4, z:120});
+scene.add(escenario272);
+
+const escenario273= vaso01({x:90, y:4, z:-10});
+scene.add(escenario273);
+
+const escenario274= vaso01({x:110, y:4, z:-80});
+scene.add(escenario274);
+
+const escenario275= vaso01({x:60, y:4, z:-120});
+scene.add(escenario275);
+
+const escenario276= vaso01({x:-40, y:4, z:-90});
+scene.add(escenario276);
+
+const escenario277= vaso01({x:-130, y:4, z:-120});
+scene.add(escenario277);
+
+const escenario278= vaso01({x:-110, y:4, z:30});
+scene.add(escenario278);
+
+//segundo nivel 
+const escenario282= vaso01({x:-30, y:14, z:80});
+scene.add(escenario282);
+
+const escenario283= vaso01({x:10, y:14, z:60});
+scene.add(escenario283);
+
+const escenario284= vaso01({x:50, y:14, z:-10});
+scene.add(escenario284);
+
+const escenario285= vaso01({x:50, y:14, z:-60});
+scene.add(escenario285);
+
+const escenario286= vaso01({x:-30, y:14, z:-40});
+scene.add(escenario286);
+
+const escenario287= vaso01({x:-60, y:14, z:20});
+escenario287.scale.set(1.5,1.5,1.5);
+scene.add(escenario287);
+
+
+//velas 2
+const escenario288= vela02({x:30, y:14, z:70});
+scene.add(escenario288);
+
+const escenario289= vela02({x:30, y:14, z:-60});
+scene.add(escenario289);
+
+const escenario290= vela02({x:-70, y:14, z:-20});
+scene.add(escenario290);
+
+
+//nivel 1 
+const escenario291= vela02({x:20, y:4, z:120});
+scene.add(escenario291);
+
+
+const escenario292= vela02({x:80, y:4, z:80});
+scene.add(escenario292);
+
+const escenario293= vela02({x:120, y:4, z:-60});
+scene.add(escenario293);
+
+const escenario294= vela02({x:10, y:4, z:-120});
+scene.add(escenario294);
+
+const escenario295= vela02({x:-110, y:4, z:60});
+scene.add(escenario295);
+
+
+//Tumbas
+const escenario296= tum01({x:-250, y:4, z:250});
+escenario296.scale.set(1.5,1.5,1.5);
+scene.add(escenario296);
+
+const escenario297= tum01({x:-350, y:4, z:400});
+escenario297.scale.set(1.5,1.5,1.5);
+scene.add(escenario297);
+
+const escenario298= tum01({x:280, y:4, z:350});
+escenario298.scale.set(1.5,1.5,1.5);
+scene.add(escenario298);
+
+const escenario299= tum01({x:200, y:4, z:250});
+escenario299.scale.set(1.5,1.5,1.5);
+scene.add(escenario299);
+
+const escenario300= tum01({x:400, y:4, z:450});
+escenario300.scale.set(1.5,1.5,1.5);
+scene.add(escenario300);
+
+const escenario301= tum01({x:400, y:4, z:250});
+escenario301.scale.set(1.5,1.5,1.5);
+scene.add(escenario301);
+
+const escenario302= tum01({x:300, y:4, z:50});
+escenario302.scale.set(1.5,1.5,1.5);
+scene.add(escenario302);
+
+const escenario303= tum01({x:350, y:4, z:150});
+escenario303.scale.set(1.5,1.5,1.5);
+scene.add(escenario303);
+
+const escenario304= tum01({x:400, y:4, z:-150});
+escenario304.scale.set(1.5,1.5,1.5);
+scene.add(escenario304);
+
+const escenario305= tum01({x:200, y:4, z:-100});
+escenario305.scale.set(1.5,1.5,1.5);
+scene.add(escenario305);
+
+const escenario306= tum01({x:-400, y:4, z:250});
+escenario306.scale.set(1.5,1.5,1.5);
+scene.add(escenario306);
+
+const escenario307= tum01({x:-300, y:4, z:50});
+escenario307.scale.set(1.5,1.5,1.5);
+scene.add(escenario307);
+
+const escenario308= tum01({x:-350, y:4, z:150});
+escenario308.scale.set(1.5,1.5,1.5);
+scene.add(escenario308);
+
+const escenario309= tum01({x:400, y:4, z:-150});
+escenario309.scale.set(1.5,1.5,1.5);
+scene.add(escenario309);
+
+const escenario310= tum01({x:-200, y:4, z:-100});
+escenario310.scale.set(1.5,1.5,1.5);
+scene.add(escenario310);
+
+const escenario311= tum01({x:-400, y:4, z:-50});
+escenario311.scale.set(1.5,1.5,1.5);
+scene.add(escenario311);
+
+
+
+//Flores 
+const escenario312 = FLor01({x:-100, y:4, z:170});
+escenario312.scale.set(.5,.5,.5);
+scene.add(escenario312);
+
+const escenario313 = FLor01({x:-100, y:4, z:175});
+escenario313.scale.set(.5,.5,.5);
+scene.add(escenario313);
+
+const escenario314 = FLor01({x:-100, y:4, z:180});
+escenario314.scale.set(.5,.5,.5);
+scene.add(escenario314);
+
+const escenario315 = FLor01({x:-100, y:4, z:185});
+escenario315.scale.set(.5,.5,.5);
+scene.add(escenario315);
+
+const escenario316 = FLor01({x:-100, y:4, z:190});
+escenario316.scale.set(.5,.5,.5);
+scene.add(escenario316);
+
+const escenario317 = FLor01({x:-100, y:4, z:195});
+escenario317.scale.set(.5,.5,.5);
+scene.add(escenario317);
+
+const escenario318 = FLor01({x:-100, y:4, z:200});
+escenario318.scale.set(.5,.5,.5);
+scene.add(escenario318);
+
+const escenario319 = FLor01({x:-100, y:4, z:205});
+escenario319.scale.set(.5,.5,.5);
+scene.add(escenario319);
+
+const escenario320 = FLor01({x:-100, y:4, z:210});
+escenario320.scale.set(.5,.5,.5);
+scene.add(escenario320);
+
+const escenario321 = FLor01({x:-100, y:4, z:215});
+escenario321.scale.set(.5,.5,.5);
+scene.add(escenario321);
+
+const escenario322 = FLor01({x:-100, y:4, z:220});
+escenario322.scale.set(.5,.5,.5);
+scene.add(escenario322);
+
+const escenario323 = FLor01({x:-100, y:4, z:225});
+escenario323.scale.set(.5,.5,.5);
+scene.add(escenario323);
+
+const escenario324 = FLor01({x:-100, y:4, z:230});
+escenario324.scale.set(.5,.5,.5);
+scene.add(escenario324);
+
+const escenario325 = FLor01({x:-100, y:4, z:235});
+escenario325.scale.set(.5,.5,.5);
+scene.add(escenario325);
+
+const escenario326 = FLor01({x:-100, y:4, z:240});
+escenario326.scale.set(.5,.5,.5);
+scene.add(escenario326);
+
+const escenario327 = FLor01({x:-100, y:4, z:245});
+escenario327.scale.set(.5,.5,.5);
+scene.add(escenario327);
+
+const escenario328 = FLor01({x:-100, y:4, z:250});
+escenario328.scale.set(.5,.5,.5);
+scene.add(escenario328);
+
+const escenario330 = FLor01({x:-100, y:4, z:255});
+escenario330.scale.set(.5,.5,.5);
+scene.add(escenario330);
+
+const escenario331 = FLor01({x:-100, y:4, z:260});
+escenario331.scale.set(.5,.5,.5);
+scene.add(escenario331);
+
+const escenario332 = FLor01({x:-100, y:4, z:265});
+escenario332.scale.set(.5,.5,.5);
+scene.add(escenario332);
+
+const escenario333 = FLor01({x:-100, y:4, z:270});
+escenario333.scale.set(.5,.5,.5);
+scene.add(escenario333);
+
+const escenario334 = FLor01({x:-100, y:4, z:275});
+escenario334.scale.set(.5,.5,.5);
+scene.add(escenario334);
+
+const escenario335 = FLor01({x:-100, y:4, z:280});
+escenario335.scale.set(.5,.5,.5);
+scene.add(escenario335);
+
+const escenario336 = FLor01({x:-100, y:4, z:285});
+escenario336.scale.set(.5,.5,.5);
+scene.add(escenario336);
+
+const escenario337 = FLor01({x:-100, y:4, z:290});
+escenario337.scale.set(.5,.5,.5);
+scene.add(escenario337);
+
+const escenario338 = FLor01({x:-100, y:4, z:295});
+escenario338.scale.set(.5,.5,.5);
+scene.add(escenario338);
+
+const escenario339 = FLor01({x:-100, y:4, z:300});
+escenario339.scale.set(.5,.5,.5);
+scene.add(escenario339);
+
+const escenario340 = FLor01({x:-100, y:4, z:305});
+escenario340.scale.set(.5,.5,.5);
+scene.add(escenario340);
+
+const escenario341 = FLor01({x:-100, y:4, z:310});
+escenario341.scale.set(.5,.5,.5);
+scene.add(escenario341);
+
+const escenario342 = FLor01({x:-100, y:4, z:315});
+escenario342.scale.set(.5,.5,.5);
+scene.add(escenario342);
+
+const escenario343 = FLor01({x:-100, y:4, z:320});
+escenario343.scale.set(.5,.5,.5);
+scene.add(escenario343);
+
+const escenario344 = FLor01({x:-100, y:4, z:325});
+escenario344.scale.set(.5,.5,.5);
+scene.add(escenario344);
+
+const escenario345 = FLor01({x:-100, y:4, z:330});
+escenario345.scale.set(.5,.5,.5);
+scene.add(escenario345);
+
+const escenario346 = FLor01({x:-100, y:4, z:335});
+escenario346.scale.set(.5,.5,.5);
+scene.add(escenario346);
+
+const escenario347 = FLor01({x:-100, y:4, z:340});
+escenario347.scale.set(.5,.5,.5);
+scene.add(escenario347);
+
+const escenario348 = FLor01({x:-100, y:4, z:345});
+escenario348.scale.set(.5,.5,.5);
+scene.add(escenario348);
+
+const escenario349 = FLor01({x:-100, y:4, z:350});
+escenario349.scale.set(.5,.5,.5);
+scene.add(escenario349);
+
+const escenario350 = FLor01({x:-100, y:4, z:355});
+escenario350.scale.set(.5,.5,.5);
+scene.add(escenario350);
+
+const escenario351 = FLor01({x:-100, y:4, z:360});
+escenario351.scale.set(.5,.5,.5);
+scene.add(escenario351);
+
+const escenario352 = FLor01({x:-100, y:4, z:365});
+escenario352.scale.set(.5,.5,.5);
+scene.add(escenario352);
+
+const escenario353 = FLor01({x:-100, y:4, z:365});
+escenario353.scale.set(.5,.5,.5);
+scene.add(escenario353);
+
+const escenario354 = FLor01({x:-100, y:4, z:370});
+escenario354.scale.set(.5,.5,.5);
+scene.add(escenario354);
+
+const escenario355 = FLor01({x:-100, y:4, z:375});
+escenario355.scale.set(.5,.5,.5);
+scene.add(escenario355);
+
+const escenario356 = FLor01({x:-100, y:4, z:380});
+escenario356.scale.set(.5,.5,.5);
+scene.add(escenario356);
+
+const escenario357 = FLor01({x:-100, y:4, z:385});
+escenario357.scale.set(.5,.5,.5);
+scene.add(escenario357);
+
+const escenario358 = FLor01({x:-100, y:4, z:390});
+escenario358.scale.set(.5,.5,.5);
+scene.add(escenario358);
+
+const escenario359 = FLor01({x:-100, y:4, z:395});
+escenario359.scale.set(.5,.5,.5);
+scene.add(escenario359);
+
+const escenario360 = FLor01({x:-100, y:4, z:400});
+escenario360.scale.set(.5,.5,.5);
+scene.add(escenario360);
+
+const escenario361 = FLor01({x:-100, y:4, z:405});
+escenario361.scale.set(.5,.5,.5);
+scene.add(escenario361);
+
+const escenario362 = FLor01({x:-100, y:4, z:410});
+escenario362.scale.set(.5,.5,.5);
+scene.add(escenario362);
+
+const escenario363 = FLor01({x:-100, y:4, z:415});
+escenario363.scale.set(.5,.5,.5);
+scene.add(escenario363);
+
+const escenario364 = FLor01({x:-100, y:4, z:420});
+escenario364.scale.set(.5,.5,.5);
+scene.add(escenario364);
+
+const escenario365 = FLor01({x:-100, y:4, z:425});
+escenario365.scale.set(.5,.5,.5);
+scene.add(escenario365);
+
+const escenario366 = FLor01({x:-100, y:4, z:430});
+escenario366.scale.set(.5,.5,.5);
+scene.add(escenario366);
+
+const escenario367 = FLor01({x:-100, y:4, z:435});
+escenario367.scale.set(.5,.5,.5);
+scene.add(escenario367);
+
+const escenario368 = FLor01({x:-100, y:4, z:440});
+escenario368.scale.set(.5,.5,.5);
+scene.add(escenario368);
+
+const escenario369 = FLor01({x:-100, y:4, z:445});
+escenario369.scale.set(.5,.5,.5);
+scene.add(escenario369);
+
+const escenario370 = FLor01({x:-100, y:4, z:450});
+escenario370.scale.set(.5,.5,.5);
+scene.add(escenario370);
+
+const escenario371 = FLor01({x:-100, y:4, z:455});
+escenario371.scale.set(.5,.5,.5);
+scene.add(escenario371);
+
+const escenario372 = FLor01({x:-100, y:4, z:460});
+escenario372.scale.set(.5,.5,.5);
+scene.add(escenario372);
+
+const escenario373 = FLor01({x:-100, y:4, z:465});
+escenario373.scale.set(.5,.5,.5);
+scene.add(escenario373);
+
+const escenario374 = FLor01({x:-100, y:4, z:470});
+escenario374.scale.set(.5,.5,.5);
+scene.add(escenario374);
+
+const escenario375 = FLor01({x:-100, y:4, z:475});
+escenario375.scale.set(.5,.5,.5);
+scene.add(escenario375);
+
+const escenario376 = FLor01({x:-100, y:4, z:480});
+escenario376.scale.set(.5,.5,.5);
+scene.add(escenario376);
+
+const escenario377 = FLor01({x:-100, y:4, z:485});
+escenario377.scale.set(.5,.5,.5);
+scene.add(escenario377);
+
+const escenario378 = FLor01({x:-100, y:4, z:490});
+escenario378.scale.set(.5,.5,.5);
+scene.add(escenario378);
+
+const escenario379 = FLor01({x:-100, y:4, z:495});
+escenario379.scale.set(.5,.5,.5);
+scene.add(escenario379);
+
+const escenario380 = FLor01({x:-100, y:4, z:170});
+escenario380.scale.set(.5,.5,.5);
+scene.add(escenario380);
+
+
+
+
+
+const escenario381 = FLor01({x:100, y:4, z:170});
+escenario381.scale.set(.5,.5,.5);
+scene.add(escenario381);
+
+const escenario382 = FLor01({x:100, y:4, z:175});
+escenario382.scale.set(.5,.5,.5);
+scene.add(escenario382);
+
+const escenario383 = FLor01({x:100, y:4, z:180});
+escenario383.scale.set(.5,.5,.5);
+scene.add(escenario383);
+
+const escenario384 = FLor01({x:100, y:4, z:185});
+escenario384.scale.set(.5,.5,.5);
+scene.add(escenario384);
+
+const escenario385 = FLor01({x:100, y:4, z:190});
+escenario385.scale.set(.5,.5,.5);
+scene.add(escenario385);
+
+const escenario386= FLor01({x:100, y:4, z:195});
+escenario386.scale.set(.5,.5,.5);
+scene.add(escenario386);
+
+const escenario387 = FLor01({x:100, y:4, z:200});
+escenario387.scale.set(.5,.5,.5);
+scene.add(escenario387);
+
+const escenario388 = FLor01({x:100, y:4, z:205});
+escenario388.scale.set(.5,.5,.5);
+scene.add(escenario388);
+
+const escenario389 = FLor01({x:100, y:4, z:210});
+escenario389.scale.set(.5,.5,.5);
+scene.add(escenario389);
+
+const escenario390 = FLor01({x:100, y:4, z:215});
+escenario390.scale.set(.5,.5,.5);
+scene.add(escenario390);
+
+const escenario391 = FLor01({x:100, y:4, z:220});
+escenario391.scale.set(.5,.5,.5);
+scene.add(escenario391);
+
+const escenario392 = FLor01({x:100, y:4, z:225});
+escenario392.scale.set(.5,.5,.5);
+scene.add(escenario392);
+
+const escenario393 = FLor01({x:100, y:4, z:230});
+escenario393.scale.set(.5,.5,.5);
+scene.add(escenario393);
+
+const escenario394 = FLor01({x:100, y:4, z:235});
+escenario394.scale.set(.5,.5,.5);
+scene.add(escenario394);
+
+const escenario395 = FLor01({x:100, y:4, z:240});
+escenario395.scale.set(.5,.5,.5);
+scene.add(escenario395);
+
+const escenario396 = FLor01({x:100, y:4, z:245});
+escenario396.scale.set(.5,.5,.5);
+scene.add(escenario396);
+
+const escenario397 = FLor01({x:100, y:4, z:250});
+escenario397.scale.set(.5,.5,.5);
+scene.add(escenario397);
+
+const escenario398 = FLor01({x:100, y:4, z:255});
+escenario398.scale.set(.5,.5,.5);
+scene.add(escenario398);
+
+const escenario399 = FLor01({x:100, y:4, z:260});
+escenario399.scale.set(.5,.5,.5);
+scene.add(escenario399);
+
+const escenario400 = FLor01({x:100, y:4, z:265});
+escenario400.scale.set(.5,.5,.5);
+scene.add(escenario400);
+
+const escenario401 = FLor01({x:100, y:4, z:270});
+escenario401.scale.set(.5,.5,.5);
+scene.add(escenario401);
+
+const escenario402 = FLor01({x:100, y:4, z:275});
+escenario402.scale.set(.5,.5,.5);
+scene.add(escenario402);
+
+const escenario403 = FLor01({x:100, y:4, z:280});
+escenario403.scale.set(.5,.5,.5);
+scene.add(escenario403);
+
+const escenario404= FLor01({x:100, y:4, z:285});
+escenario404.scale.set(.5,.5,.5);
+scene.add(escenario404);
+
+const escenario405= FLor01({x:100, y:4, z:290});
+escenario405.scale.set(.5,.5,.5);
+scene.add(escenario405);
+
+const escenario406 = FLor01({x:100, y:4, z:295});
+escenario406.scale.set(.5,.5,.5);
+scene.add(escenario406);
+
+const escenario407 = FLor01({x:100, y:4, z:300});
+escenario407.scale.set(.5,.5,.5);
+scene.add(escenario407);
+
+const escenario408 = FLor01({x:100, y:4, z:305});
+escenario408.scale.set(.5,.5,.5);
+scene.add(escenario408);
+
+const escenario409 = FLor01({x:100, y:4, z:310});
+escenario409.scale.set(.5,.5,.5);
+scene.add(escenario409);
+
+const escenario410 = FLor01({x:100, y:4, z:315});
+escenario410.scale.set(.5,.5,.5);
+scene.add(escenario410);
+
+const escenario411 = FLor01({x:100, y:4, z:320});
+escenario411.scale.set(.5,.5,.5);
+scene.add(escenario411);
+
+const escenario412 = FLor01({x:100, y:4, z:325});
+escenario412.scale.set(.5,.5,.5);
+scene.add(escenario412);
+
+const escenario413 = FLor01({x:100, y:4, z:330});
+escenario413.scale.set(.5,.5,.5);
+scene.add(escenario413);
+
+const escenario414 = FLor01({x:100, y:4, z:335});
+escenario414.scale.set(.5,.5,.5);
+scene.add(escenario414);
+
+const escenario415 = FLor01({x:100, y:4, z:340});
+escenario415.scale.set(.5,.5,.5);
+scene.add(escenario415);
+
+const escenario416 = FLor01({x:100, y:4, z:345});
+escenario416.scale.set(.5,.5,.5);
+scene.add(escenario416);
+
+const escenario417 = FLor01({x:-100, y:4, z:350});
+escenario349.scale.set(.5,.5,.5);
+scene.add(escenario349);
+
+const escenario418 = FLor01({x:100, y:4, z:355});
+escenario418.scale.set(.5,.5,.5);
+scene.add(escenario418);
+
+const escenario419 = FLor01({x:100, y:4, z:360});
+escenario419.scale.set(.5,.5,.5);
+scene.add(escenario419);
+
+const escenario420 = FLor01({x:100, y:4, z:365});
+escenario420.scale.set(.5,.5,.5);
+scene.add(escenario420);
+
+const escenario421 = FLor01({x:100, y:4, z:365});
+escenario421.scale.set(.5,.5,.5);
+scene.add(escenario421);
+
+const escenario422 = FLor01({x:100, y:4, z:370});
+escenario422.scale.set(.5,.5,.5);
+scene.add(escenario422);
+
+const escenario423 = FLor01({x:100, y:4, z:375});
+escenario423.scale.set(.5,.5,.5);
+scene.add(escenario423);
+
+const escenario424 = FLor01({x:100, y:4, z:380});
+escenario424.scale.set(.5,.5,.5);
+scene.add(escenario424);
+
+const escenario425 = FLor01({x:100, y:4, z:385});
+escenario425.scale.set(.5,.5,.5);
+scene.add(escenario425);
+
+const escenario426 = FLor01({x:100, y:4, z:390});
+escenario426.scale.set(.5,.5,.5);
+scene.add(escenario426);
+
+const escenario427 = FLor01({x:100, y:4, z:395});
+escenario427.scale.set(.5,.5,.5);
+scene.add(escenario427);
+
+const escenario428 = FLor01({x:100, y:4, z:400});
+escenario428.scale.set(.5,.5,.5);
+scene.add(escenario428);
+
+const escenario429 = FLor01({x:100, y:4, z:405});
+escenario429.scale.set(.5,.5,.5);
+scene.add(escenario429);
+
+const escenario430 = FLor01({x:100, y:4, z:410});
+escenario430.scale.set(.5,.5,.5);
+scene.add(escenario430);
+
+const escenario431 = FLor01({x:100, y:4, z:415});
+escenario431.scale.set(.5,.5,.5);
+scene.add(escenario431);
+
+const escenario432 = FLor01({x:100, y:4, z:420});
+escenario432.scale.set(.5,.5,.5);
+scene.add(escenario432);
+
+const escenario433 = FLor01({x:100, y:4, z:425});
+escenario433.scale.set(.5,.5,.5);
+scene.add(escenario433);
+
+const escenario434 = FLor01({x:100, y:4, z:430});
+escenario434.scale.set(.5,.5,.5);
+scene.add(escenario434);
+
+const escenario435 = FLor01({x:100, y:4, z:435});
+escenario435.scale.set(.5,.5,.5);
+scene.add(escenario435);
+
+const escenario436 = FLor01({x:100, y:4, z:440});
+escenario436.scale.set(.5,.5,.5);
+scene.add(escenario436);
+
+const escenario437 = FLor01({x:100, y:4, z:445});
+escenario437.scale.set(.5,.5,.5);
+scene.add(escenario437);
+
+const escenario438 = FLor01({x:100, y:4, z:450});
+escenario438.scale.set(.5,.5,.5);
+scene.add(escenario438);
+
+const escenario439 = FLor01({x:100, y:4, z:455});
+escenario439.scale.set(.5,.5,.5);
+scene.add(escenario439);
+
+const escenario440 = FLor01({x:100, y:4, z:460});
+escenario440.scale.set(.5,.5,.5);
+scene.add(escenario440);
+
+const escenario441 = FLor01({x:100, y:4, z:465});
+escenario441.scale.set(.5,.5,.5);
+scene.add(escenario441);
+
+const escenario442 = FLor01({x:100, y:4, z:470});
+escenario442.scale.set(.5,.5,.5);
+scene.add(escenario442);
+
+const escenario443 = FLor01({x:100, y:4, z:475});
+escenario443.scale.set(.5,.5,.5);
+scene.add(escenario443);
+
+const escenario444 = FLor01({x:100, y:4, z:480});
+escenario444.scale.set(.5,.5,.5);
+scene.add(escenario444);
+
+const escenario445 = FLor01({x:100, y:4, z:485});
+escenario445.scale.set(.5,.5,.5);
+scene.add(escenario445);
+
+const escenario446 = FLor01({x:100, y:4, z:490});
+escenario446.scale.set(.5,.5,.5);
+scene.add(escenario446);
+
+const escenario447 = FLor01({x:100, y:4, z:495});
+escenario447.scale.set(.5,.5,.5);
+scene.add(escenario447);
+
+const escenario448 = FLor01({x:100, y:4, z:500});
+escenario448.scale.set(.5,.5,.5);
+scene.add(escenario448);
+
+//velas 
+const escenario449= vela02({x:-110, y:4, z:170});
+scene.add(escenario449);
+
+const escenario450= vela02({x:70, y:4, z:170});
+scene.add(escenario450);
+
+const escenario451= vela02({x:-110, y:4, z:200});
+scene.add(escenario451);
+
+const escenario452= vela02({x:70, y:4, z:200});
+scene.add(escenario452);
+
+const escenario453= vela02({x:-110, y:4, z:230});
+scene.add(escenario453);
+
+const escenario454= vela02({x:70, y:4, z:230});
+scene.add(escenario454);
+
+const escenario455= vela02({x:-110, y:4, z:260});
+scene.add(escenario455);
+
+const escenario456= vela02({x:70, y:4, z:260});
+scene.add(escenario456);
+
+const escenario457= vela02({x:-110, y:4, z:290});
+scene.add(escenario457);
+
+const escenario458= vela02({x:70, y:4, z:290});
+scene.add(escenario458);
+
+const escenario459= vela02({x:-110, y:4, z:310});
+scene.add(escenario459);
+
+const escenario460= vela02({x:70, y:4, z:310});
+scene.add(escenario460);
+
+const escenario461= vela02({x:-110, y:4, z:340});
+scene.add(escenario461);
+
+const escenario462= vela02({x:70, y:4, z:340});
+scene.add(escenario462);
+
+const escenario463= vela02({x:-110, y:4, z:370});
+scene.add(escenario463);
+
+const escenario464= vela02({x:70, y:4, z:370});
+scene.add(escenario464);
+
+const escenario465= vela02({x:-110, y:4, z:400});
+scene.add(escenario465);
+
+const escenario466= vela02({x:70, y:4, z:400});
+scene.add(escenario466);
+
+const escenario467= vela02({x:-110, y:4, z:430});
+scene.add(escenario467);
+
+const escenario468= vela02({x:70, y:4, z:430});
+scene.add(escenario468);
+
+const escenario469= vela02({x:-110, y:4, z:460});
+scene.add(escenario469);
+
+const escenario470= vela02({x:70, y:4, z:460});
+scene.add(escenario470);
+
+const escenario471= vela02({x:-110, y:4, z:490});
+scene.add(escenario471);
+
+const escenario472= vela02({x:70, y:4, z:490});
+scene.add(escenario472);
+
+//xibalba 
+const escenario473= xibalba({x:10, y:0, z:-300});
+escenario473.scale.set(6,6,6);
+scene.add(escenario473);
+
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+
+    //🪄🪄 Animación - 
+
+    
+    
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>
